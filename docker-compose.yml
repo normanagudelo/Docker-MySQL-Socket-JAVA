@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  socketclient:
+    build:
+      context: .
+      dockerfile: Dockerfile  # Nombre del Dockerfile personalizado para socketclient
+    command: tail -f /dev/null
+    volumes:
+      - /home/norman/eclipse-workspace/SocketServerClientDBS/src/SocketServerClientDBS:/home/
+    container_name: socketclient
+    restart: always
+    ports:
+      - "8001:8000"  
+  socketserver:
+    build:
+      context: .
+      dockerfile: Dockerfile  # Nombre del Dockerfile personalizado para socketserver
+    command: tail -f /dev/null
+    volumes:
+      - /home/norman/eclipse-workspace/SocketServerClientDBS/src/SocketServerClientDBS:/home/
+    container_name: socketserver
+    restart: always
+    ports:
+      - "9001:9000" 
+
+  mysqlDocker:
+    image: mysql
+    restart: always
+    container_name: mysqlDocker
+    ports:
+      - "3307:3306" 
+    environment:
+      MYSQL_ROOT_PASSWORD: qweqweqwe
+      MYSQL_DATABASE: db_ciudades_personas
+      MYSQL_USER: norman
+      MYSQL_PASSWORD: qweqweqwe
+   
